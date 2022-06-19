@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Type
 import arcade
 import random
 from simulation.utils import Point2D, PointHelper
