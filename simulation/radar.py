@@ -113,7 +113,7 @@ class Radar(arcade.Window):
     def __update_discoveries(self) -> None:
         for shape in self.shape_list:
             if shape.is_in_range(Point2D(CENTER_X, CENTER_Y), Point2D(self.x1, self.y1), Point2D(self.x2, self.y2)):
-                new_shape = Shape.from_shape(Ellipse, shape)
+                new_shape = shape.from_shape(shape)
                 if id(shape) not in (elem.id for elem in self.radar_discovered_objects):
                     self.radar_discovered_objects.append(RadarListElement(datetime.datetime.now(), new_shape, id(shape)))
         

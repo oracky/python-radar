@@ -45,9 +45,8 @@ class Shape:
     def is_in_range(self, v1 : Point2D, v2 : Point2D, v3 : Point2D) -> bool:
         return PointHelper.is_point_in_triangle(Point2D(self.x, self.y), v1, v2, v3)
 
-    @staticmethod
-    def from_shape(shape_class : Type[Shape], instance : Shape) -> Shape:
-        return shape_class(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
+    def from_shape(self, instance : Shape) -> Shape:
+        return Shape(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
 
     @staticmethod
     def randomize_movement(speed : int) -> 'tuple[int, int, int]':
@@ -92,6 +91,10 @@ class Ellipse(Shape):
                                              self.color, self.angle)
         self.shape_list = arcade.ShapeElementList()
         self.shape_list.append(shape)
+    
+    def from_shape(self, instance : Shape) -> Shape:
+        return Ellipse(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
+
 
 
 class Rectangle(Shape):
@@ -108,6 +111,9 @@ class Rectangle(Shape):
         self.shape_list = arcade.ShapeElementList()
         self.shape_list.append(shape)
 
+    def from_shape(self, instance : Shape) -> Shape:
+        return Rectangle(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
+
 
 class Line(Shape):
 
@@ -123,12 +129,17 @@ class Line(Shape):
         self.shape_list = arcade.ShapeElementList()
         self.shape_list.append(shape)
 
+    def from_shape(self, instance : Shape) -> Shape:
+        return Line(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
 
 class StableRectangle(Rectangle):
     def __init__(self, x, y, width, height, angle, delta_x, delta_y, delta_angle, color) -> None:
         super().__init__(x, y, width, height, angle, delta_x, delta_y, delta_angle, color)
 
         self.moving = False
+
+    def from_shape(self, instance : Shape) -> Shape:
+        return StableRectangle(instance.x, instance.y, instance.width, instance.height, instance.angle, instance.delta_x, instance.delta_y, instance.delta_angle, arcade.color.GREEN)
 
     def move(self) -> None:
         pass
