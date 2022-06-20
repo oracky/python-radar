@@ -41,6 +41,9 @@ class Radar(arcade.Window):
         self.y1 = CENTER_Y
         self.y1 = CENTER_Y
 
+        self.wave_length = SWEEP_LENGTH // 5
+        self.wave_d = 1
+
         self.widget_manager = RadarWidgetManager(self)
         
         self.minimap_ratio = minimap_ratio
@@ -110,6 +113,22 @@ class Radar(arcade.Window):
         for element in self.radar_discovered_objects:
             element.shape.draw()
 
+        
+        if self.wave_length - self.wave_d * 160 > SWEEP_LENGTH // 5:
+            arcade.draw_circle_outline(CENTER_X, CENTER_Y, self.wave_length - self.wave_d * 160, color=arcade.color.GREEN, border_width=2)
+        if self.wave_length - self.wave_d * 120 > SWEEP_LENGTH // 5:
+            arcade.draw_circle_outline(CENTER_X, CENTER_Y, self.wave_length - self.wave_d * 120, color=arcade.color.GREEN, border_width=2)
+        if self.wave_length - self.wave_d * 80 > SWEEP_LENGTH // 5:
+            arcade.draw_circle_outline(CENTER_X, CENTER_Y, self.wave_length - self.wave_d * 80, color=arcade.color.GREEN, border_width=2)
+        if self.wave_length - self.wave_d * 40 > SWEEP_LENGTH // 5:
+            arcade.draw_circle_outline(CENTER_X, CENTER_Y, self.wave_length - self.wave_d * 40, color=arcade.color.GREEN, border_width=2)
+        
+
+        arcade.draw_circle_outline(CENTER_X, CENTER_Y, self.wave_length, color=arcade.color.GREEN, border_width=2)
+        self.wave_length += self.wave_d
+        if self.wave_length == SWEEP_LENGTH:
+            self.wave_length = SWEEP_LENGTH // 5
+
     def __update_discoveries(self) -> None:
         for shape in self.shape_list:
             if shape.is_in_range(Point2D(CENTER_X, CENTER_Y), Point2D(self.x1, self.y1), Point2D(self.x2, self.y2)):
@@ -146,5 +165,18 @@ class Radar(arcade.Window):
         self.__update_minimap()
         self.__update_discoveries()
         self.__draw_shapes()
+        # arcade.draw_arc_outline(CENTER_X, CENTER_Y, 300, 300, arcade.color.GREEN, 0, 180, border_width=3)
+        # arcade.draw_arc_outline(CENTER_X, CENTER_Y, 300, 200, arcade.color.GREEN, 0, 180, border_width=3)
+        # arcade.draw_arc_outline(CENTER_X, CENTER_Y, 300, 400, arcade.color.GREEN, 0, 180, border_width=3)
+        # arcade.draw_arc_outline(CENTER_X, CENTER_Y + 50, 100, 100, arcade.color.GREEN, 90, 360, border_width=3)
+        # arcade.draw_point(CENTER_X, CENTER_Y + 50, color=arcade.color.AERO_BLUE, size=3)
+        radius = SWEEP_LENGTH // 5
+        rx = 50
+
+        # arcade.draw_circle_outline(CENTER_X, CENTER_Y, radius, color=arcade.color.GREEN, border_width=2)
+        # arcade.draw_circle_outline(CENTER_X, CENTER_Y, radius + rx, color=arcade.color.GREEN, border_width=4)
+        # arcade.draw_circle_outline(CENTER_X, CENTER_Y, radius + 2 * rx, color=arcade.color.GREEN, border_width=6)
+        # arcade.draw_circle_outline(CENTER_X, CENTER_Y, radius + 3 * rx, color=arcade.color.GREEN, border_width=8)
+        # arcade.draw_circle_outline(CENTER_X, CENTER_Y, radius + 4 * rx, color=arcade.color.GREEN, border_width=8)
 
         self.minimap_sprite_list.draw()
