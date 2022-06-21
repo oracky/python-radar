@@ -14,7 +14,7 @@ class RadarWidgetManager:
     def setup(self) -> None:
         self.__setup_minimap()
         self.__setup_generative_widgets()
-        self.__setup_speed_widgets()
+        self.__setup_param_widgets()
 
     def draw(self) -> None:
         self.manager.draw()
@@ -23,7 +23,7 @@ class RadarWidgetManager:
         label_minimap = UILabel(text=f"Live view", font_size=16)
         self.manager.add(UIAnchorWidget(child=label_minimap, align_y=130, align_x=-30, anchor_x='right', anchor_y='bottom'))
 
-    def __setup_speed_widgets(self) -> None:
+    def __setup_param_widgets(self) -> None:
         ui_radar_slider = UISlider(value=DEFAULT_PERCENTAGE_VALUE, min_value=0, max_value=100, width=150, height=50)
         label_radar = UILabel(text=f"Radar speed: {int(ui_radar_slider.value)}%", font_size=10)
 
@@ -32,6 +32,9 @@ class RadarWidgetManager:
 
         ui_radar_swape_slider = UISlider(value=DEFAULT_PERCENTAGE_VALUE, min_value=0, max_value=100, width=150, height=50)
         label_radar_swape = UILabel(text=f"Radar range: {int(ui_radar_swape_slider.value)}%", font_size=10)
+
+        ui_wave_verbosity_slider = UISlider(value=DEFAULT_PERCENTAGE_VALUE, min_value=0, max_value=100, width=150, height=50)
+        label_wave_verbosity = UILabel(text=f"Wave verbosity: {0 if ui_wave_verbosity_slider.value <= 50 else 1}", font_size=10)
 
         @ui_radar_slider.event()
         def on_change(event: UIOnChangeEvent):
@@ -50,14 +53,21 @@ class RadarWidgetManager:
             label_radar_swape.text = f"Radar range:: {int(ui_radar_swape_slider.value)}%"
             label_radar_swape.fit_content()
             self.window.radar_range = ui_radar_swape_slider.value / DEFAULT_PERCENTAGE_VALUE
-        
 
+        @ui_wave_verbosity_slider.event()
+        def on_change(event: UIOnChangeEvent):
+            label_wave_verbosity.text = f"Wave verbosity: {0 if ui_wave_verbosity_slider.value <= 50 else 1}"
+            label_wave_verbosity.fit_content()
+            self.window.wave_verbosity_level = 0 if ui_wave_verbosity_slider.value <= 50 else 1
+        
         self.manager.add(UIAnchorWidget(child=ui_radar_slider, align_y=-20, anchor_x='left', anchor_y='top'))
         self.manager.add(UIAnchorWidget(child=label_radar, align_x=20, align_y=-10, anchor_x='left', anchor_y='top'))
         self.manager.add(UIAnchorWidget(child=ui_objects_slider, align_y=-80, anchor_x='left', anchor_y='top'))
         self.manager.add(UIAnchorWidget(child=label_objects, align_x=20, align_y=-70, anchor_x='left', anchor_y='top'))
         self.manager.add(UIAnchorWidget(child=ui_radar_swape_slider, align_y=-140, anchor_x='left', anchor_y='top'))
         self.manager.add(UIAnchorWidget(child=label_radar_swape, align_x=20, align_y=-130, anchor_x='left', anchor_y='top'))
+        self.manager.add(UIAnchorWidget(child=ui_wave_verbosity_slider, align_y=-200, anchor_x='left', anchor_y='top'))
+        self.manager.add(UIAnchorWidget(child=label_wave_verbosity, align_x=20, align_y=-190, anchor_x='left', anchor_y='top'))
 
     def __setup_generative_widgets(self) -> None:
         self.window.shapes_number = 0
