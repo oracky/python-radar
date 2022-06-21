@@ -33,12 +33,17 @@ python main.py
 <br/>
 Projekt testowany na Windowsie, Python 3.10, wersja biblioteki arcade: 2.6.15
 <br/>
-Program symuluje działanie radaru. Radar wykrywa obiekty znajdujące się w jego obszarze działania. Reszta obiektów oraz ich poruszanie się na żywo można podglądać na minimapie w dolnym prawym rogu. Program umożliwia konfigurację radaru oraz obiektów na mapie.  
+Program symuluje działanie radaru. Radar wykrywa obiekty znajdujące się w jego obszarze działania. Reszta obiektów oraz ich poruszanie się na żywo można podglądać na minimapie w dolnym prawym rogu. Program umożliwia konfigurację radaru oraz obiektów na mapie. Dodatkowo istnieje możliwość wybrania jednego z dwóch trybów pokazywania fal.
 <br/>
 <br/>
 
 ### Dodanie nowych obiektów na mapę
 W celu dodania nowych obiektów należy użyć suwaka z napisem ```Number of objects``` (wartości od 0 do 20) i wybrać ilość obiektów do wygenerowania, a następnie nacisnąć przycisk ```Generate new moving objects```. 
+
+<br/>
+
+### Zmiana trybu wyświetlania fal
+W celu zmiany trybu wyświetlania fal należy użyć suwaka z napisem ```Wave verbosity``` (wartości od 0 do 1). 
 
 <br/>
 
